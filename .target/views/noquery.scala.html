@@ -1,0 +1,18 @@
+@(Message: String)
+
+@main("CitxtSeer") {
+
+    <div id="actions">
+        
+        <form action="/papers" method="GET">
+            <input type="search" id="searchbox" name="query" placeholder="Search by query..."> 
+            <input type="submit" id="searchsubmit" value="Search" class="btn primary">
+        </form>
+                
+    </div>
+
+	<h1> @Message </h1>
+        
+}
+
+            

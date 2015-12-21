@@ -1,0 +1,71 @@
+@(papers : List[Paper],contexts : List[Context])
+
+@main("CitxtSeer") {
+    
+    @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+    } 
+	
+    <div id="actions">
+        <form action="/papers" method="GET">
+			<!-- Search form -->
+            <input type="search" id="searchbox" name="query" placeholder="Search by query..."> 
+			<!-- submit button -->
+            <input type="submit" id="searchsubmit" value="Search" class="btn primary">
+        </form>   	
+    </div>
+	
+	
+	 @for(paper <- papers) {
+						<center><h2>@paper.title</h2>
+						<div class="pubinfo">
+							<p><span class="authors">  by @paper.authors </span></h5> 
+							@if(paper.pubvenue !=null){
+								<p><span class="pubvenue"><strong> Venue:</strong> @paper.pubvenue</span></h5>
+							}
+							@if(paper.year !=null){							
+								<p><span class="pubyear"><strong> Published:</strong> @paper.year</span></h5> 
+							}
+						</div></center>
+						<br>
+						<div> 
+							<center> <h3> Abstract </h3> </center>
+							<div> <p> @paper.abst </p> </div>
+						</div>					
+                }
+		
+    <!-- 以下是search engine 結果呈現方式 -->
+    @if(contexts.size() == 0) {
+			<div class="well">
+				<em>Nothing to display</em>
+			</div>
+    } else {
+				<!-- 將currentPage.getList 所產出的 Computer List 列出 , 我們的case是 paper list。將List資料存成computer物件 -->
+				<!--
+				<center><h3>Citation List</h3></center>
+                <ol>
+				@for(context <- contexts){
+				<li>@context.title   		
+                }
+				</ol>
+				<br><br>
+				-->
+				<br>
+				<center><h3>Citation Contexts</h3></center>
+				<ol>
+					@for(context <- contexts) {
+						@if(context.unCutCtxt !=null){
+							<p> <li>@context.Ctxt_upperparg <strong> <font color="31849B">@context.Ctxt_number</font></strong>  @context.Ctxt_lowerparg
+							</P>
+						}	
+					}
+				</ol>
+			}	
+			
+            </tbody>
+        
+}
+
+            

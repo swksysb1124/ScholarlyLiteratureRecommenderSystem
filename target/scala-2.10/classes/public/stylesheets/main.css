@@ -1,0 +1,14 @@
+.abstract_toggle
+{
+cursor: pointer;
+}
+
+.pubabstract
+{
+border: 1px solid #bbb;
+background: #eee;
+margin-top: 8px;
+padding: 8px;
+display: none;
+color: #333;
+}

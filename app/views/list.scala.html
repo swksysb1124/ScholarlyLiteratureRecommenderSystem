@@ -1,0 +1,80 @@
+@( paged_papers: List[Paper], offset: Integer, upper: Integer, total: Integer, page: Integer, query: String )
+
+@main("CitxtSeer") {
+    
+    @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+    } 
+
+    <div id="actions">
+        
+        <form action="/papers" method="GET"> <!--action 改成"/???", 由form action去呼叫routes進行動作 -->
+            <input type="search" id="searchbox" name="query" placeholder="Search by query..."> <!--f 改成 query, value 沒有沒關係 -->
+            <input type="submit" id="searchsubmit" value="Search" class="btn primary">
+        </form>
+                
+    </div>
+    <!-- 以下是search engine 結果呈現方式 -->
+    @if(paged_papers.size() == 0) {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    } else {
+			<div id="result_info",>
+			<p style="background-color:rgb(146,205,220);">
+			   	<Strong>@{offset+1} - @upper</Strong> of <Strong>@total</Strong> Results
+			</p>
+	    	</div>
+			<div id="result_list">
+				<!-- 將currentPage.getList 所產出的 Computer List 列出 , 我們的case是 paper list。將List資料存成computer物件 -->
+                @for(paper <- paged_papers) {
+						<h3>
+							<a href="@routes.Application.context(paper.id)">@paper.title </a> 
+						</h3>
+						
+						<div class="pubinfo">
+							<span class="authors"> by <i>@paper.authors</i></span>                  		
+							<span class="pubvenue"> @paper.pubvenue</span>
+							<span class="pubyear">, @paper.year .</span>
+						</div>
+
+						<div class="pubextras"> 
+						<a class="abstract_toggle"> <strong> Abstract </strong> </a>
+							-
+							<a class="citation remove" href="http://citeseerx.ist.psu.edu/showciting?doi=@paper.id" title="number of citations">
+									Cited by @paper.ncites (@paper.selfCites self) </a>
+							-
+							<a>Like</a>
+							<div class="pubabstract"> @paper.abst </div>
+						</div>
+						<hr>
+                }
+			</div>
+            </tbody>
+		<!-- -->
+		<!-- 以下是分頁呈現方式 -->
+		<div class="sb_pag">
+				@if(page>1){
+					<a href="@routes.Application.list(query,(page-1))">Prev</a>
+					@for(i <- math.max(1,page-5) until page) {
+						<a href="@routes.Application.list(query,i)">@i</a>
+					}
+				} 
+				- <a class="sb_pagS">@page</a>
+				@if(page<(total.toDouble/10.0).ceil.toInt) {
+					@for(i <- page+1 to math.min((total.toDouble/10.0).ceil.toInt, page+4)) {
+						<a href="@routes.Application.list(query,i)">@i</a>
+					}
+					<a href="@routes.Application.list(query,(page+1))">Next</a>
+				}
+		</div>
+		
+    }
+        
+}
+
+            
