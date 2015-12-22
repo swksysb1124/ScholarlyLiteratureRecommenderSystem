@@ -1,4 +1,2 @@
-This is your new Play application
-=====================================
-
-This file will be packaged with your application, when using `play dist`.
+# ScholarlyLiteratureRecommenderSystem
+The objective of this project is to develop a specialty search engine for citation contexts. Today there are plenty of search engines built up for different purposes. Search engines for citations of papers or patents are also well-developed and there are search engine provide the information about the contexts of each citations of the papers of interest, such as Microsoft academic Search, as well. In addition, the researches for analysis of citation contexts are widely studied. However, so far, there is not such a search engine provide information of citation contexts and the analysis of its contexts. The goal of this project aim to build up a search engine which provides users to retrieve information of academic papers in which they are interest in an order sort by the importance and the extent to which how informative the citation contexts contain.
